@@ -1,2 +1,21 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+  // imports
+  // import {  } from '@components';
+  import { routeChange } from '@stores';
+  import { onMount } from 'svelte';
+
+  // handlers
+
+  // helpers
+
+  // props (internal)
+
+  // props (external)
+
+  // props (dynamic)
+
+  // lifecycle
+  onMount(async () => {
+    $routeChange = false;
+  });
+</script>
