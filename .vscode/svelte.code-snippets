@@ -28,7 +28,7 @@
     "body": [
       "<script>",
       "\t// imports",
-      "\t// import {  } from '@components';",
+      "\timport { RouteContainer } from '@components';",
       "\timport { routeChange } from '@stores';",
       "\timport { onMount } from 'svelte';",
       "\t",
@@ -46,7 +46,10 @@
       "\tonMount(async() => {",
       "\t\t\\$routeChange = false;",
       "\t});",
-      "</script>"
+      "</script>",
+      "",
+      "<RouteContainer title=\"$1\">",
+      "</RouteContainer>"
     ]
   }
 }

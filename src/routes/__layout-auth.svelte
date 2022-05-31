@@ -1,9 +1,7 @@
 <script>
   // imports
-  import { goto } from '$app/navigation';
-  import { HeadTitle, Navigation, ProgressIndicator } from '@components';
-  import { getFetchPostData } from '@lib/utilities';
-  import { auth, routeChange } from '@stores';
+  import { HeadTitle, ProgressIndicator } from '@components';
+  import { routeChange } from '@stores';
   import { beforeUpdate } from 'svelte';
   import { twMerge } from 'tailwind-merge';
   import '../app.css';
@@ -23,23 +21,14 @@
   );
 
   // lifecycle
-  beforeUpdate(async () => {
+  beforeUpdate(() => {
     $routeChange = true;
-    try {
-      const { token } = await getFetchPostData('/api/auth/verify', { body: { token: $auth } })
-      auth.signin(token);
-    } catch (message) {
-      console.error(message)
-      auth.signout();
-      goto('/signin')
-    }
   });
 </script>
 
 <HeadTitle />
 
 <div class="flex">
-  <Navigation />
   <div class="relative max-h-screen overflow-y-auto flex-grow">
     <slot />
     <div class={loadingClasses}>

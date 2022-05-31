@@ -114,5 +114,5 @@
   class="sm:max-w-full md:max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full"
   title="Work Orders"
 >
-  <Datatable class="w-full" {columns} {rows} sortKey={['orderDate']} />
+  <Datatable class="w-full" {columns} {rows} sortKey={['woNumber', 'orderDate']} />
 </RouteContainer>

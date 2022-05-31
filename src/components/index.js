@@ -1,9 +1,15 @@
+export { default as A } from './A.svelte';
 export { default as Button } from './Button.svelte';
+export { default as ButtonSubmit } from './ButtonSubmit.svelte';
 export { default as Container } from './Container.svelte';
 export { default as Datatable } from './Datatable.svelte';
+export { default as Form } from './Form.svelte';
 export { default as Dropzone } from './Dropzone/Dropzone.svelte';
 export { default as HeadTitle } from './HeadTitle.svelte';
-export { default as Icon } from './Icon.svelte';
+export { default as Icon } from './Icon.svelte'; 
+export { default as Input } from './Input.svelte'; 
+export { default as InputContainer } from './InputContainer.svelte'; 
+export { default as Label } from './Label.svelte'; 
 export { default as Navigation } from './Navigation.svelte';
 export { default as NavigationLink } from './NavigationLink.svelte';
 export { default as Pagination } from './Pagination.svelte';

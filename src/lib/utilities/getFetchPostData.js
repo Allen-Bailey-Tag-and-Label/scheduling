@@ -8,6 +8,8 @@ export default async (
     method = 'POST'
   }
 ) => {
-  const res = await fetchPost(url, { body });
-  return await res.json();
+    const res = await fetchPost(url, { body, headers, method });
+    const data = await res.json();
+    if (!res.ok) throw data?.message;
+    return data;
 };
