@@ -21,10 +21,10 @@
 
 <tr class={classes} use:events>
   <slot>
-    {#each columns as { classes = '', component = undefined, key, type = 'string' }}
+    {#each columns as { classes = '', component = undefined, key, type = 'string', ...column }}
       <Td class={classes} let:format {type}>
         {#if component !== undefined}
-          <svelte:component this={component} {...row[`props-${key}`]} />
+          <svelte:component this={component} {key} {row} bind:value={row[key]} {...column} />
         {:else}
           {format(row[key])}
         {/if}

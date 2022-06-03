@@ -21,4 +21,15 @@ const connect = async () => {
 // close connection
 const close = async () => client.close();
 
-export { close, connect };
+// populate method
+const populate = async ({ _id, collection = undefined, docs = undefined }) => {
+  // check if collection is not undefined
+  if (collection !== undefined) docs = await client.db().collection(collection).find().toArray();
+
+  // check if docs is not undefined
+  if (docs !== undefined) return docs.find((obj) => obj._id.toString() === _id.toString());
+
+  return undefined;
+};
+
+export { close, connect, populate };

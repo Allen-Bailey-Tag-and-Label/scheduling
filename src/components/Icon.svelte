@@ -10,7 +10,7 @@
   export let src;
 
   // props (dynamic)
-  $: classes = twMerge('transform transition duration-200 w-[20px]', $$props.class);
+  $: classes = twMerge('block transform transition duration-200 w-[20px] h-[20px]', $$props.class);
 </script>
 
 <Icon class={classes} {src} {theme} />

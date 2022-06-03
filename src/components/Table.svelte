@@ -17,25 +17,25 @@
   // props (dynamic)
   $: classes = twMerge(
     'relative shadow-md shadow-gray-900/[.1] bg-white dark:bg-gray-900 dark:shadow-gray-900/[.7]',
-    responsive ? 'overflow-x-auto max-h-[30rem]' : '',
+    responsive ? 'overflow-x-auto max-h-[14.8125rem] lg:max-h-[27.3125rem]' : '',
     $$props.class
   );
 </script>
 
 {#if responsive}
-<div class="flex {classes}" use:events>
-  <table class="w-full">
+  <div class="flex {classes}" use:events>
+    <table class="w-full">
+      <slot>
+        <Thead columns={sanitizeTableColumns(columns)} />
+        <Tbody {columns} {rows} />
+      </slot>
+    </table>
+  </div>
+{:else}
+  <table class={classes} use:events>
     <slot>
       <Thead columns={sanitizeTableColumns(columns)} />
       <Tbody {columns} {rows} />
     </slot>
   </table>
-</div>
-{:else}
-<table class={classes} use:events>
-  <slot>
-    <Thead columns={sanitizeTableColumns(columns)} />
-    <Tbody {columns} {rows} />
-  </slot>
-</table>
 {/if}

@@ -1,39 +1,29 @@
 // imports
-import { connect } from '@lib/mongodb';
+import { populate } from '@lib/mongodb';
 import { verify } from '@lib/jwt';
-import { signin } from '../signin'
-
-let connection;
-
-const getRoles = async () => await connection.db().collection('roles').find().toArray();
-const getRoutes = async () => await connection.db().collection('routes').find().toArray();
-const getUser = async (token) => {
-  // verify jwt
-  const { username } = await verify(token);
-
-  return await signin({ username });
-};
+import { signin } from '../signin';
 
 export async function post({ request }) {
-  // await mongodb connection
-  connection = await connect();
-
   // destructure request
   const { token } = await request.json();
-  
-  // get roles, routes & user
-  let [ roles, routes, user ] = await Promise.all([getRoles(), getRoutes(), getUser(token)]);
 
-  user.roles = user.roles.map(_id => {
-    const role = roles.find(role =>{ 
-      console.log({ _id, role})
-      return role._id === _id 
-    })
-    console.log(role?._id)
-    return role?._id
-  })
+  // get username from token
+  const { username } = await verify(token);
 
-  console.log(user.roles)
+  // get user
+  const user = await signin({ username });
 
-  return { status: 200, body: { roles, routes, user } }
+  // populate user roles
+  user.roles = await Promise.all(
+    user.roles.map(async (_id) => await populate({ _id, collection: 'roles' }))
+  );
+
+  // get unique route and populate results
+  const routes = await Promise.all(
+    [...new Set(...user.roles.map(({ routes }) => routes))].map(
+      async (_id) => await populate({ _id, collection: 'routes' })
+    )
+  );
+
+  return { status: 200, body: { routes } };
 }

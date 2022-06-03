@@ -6,9 +6,9 @@
   import { auth, routeChange } from '@stores';
   import { onMount } from 'svelte';
   import { slide } from 'svelte/transition';
-  
+
   // handlers
-  const submitHandler = async e => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     submitted = true;
     error = undefined;
@@ -19,33 +19,31 @@
         const [key, value] = field;
         data[key] = value;
       }
-      const { on, token } = await getFetchPostData('/api/auth/signin', { body : data })
-      auth.signin(token)
-      goto(on.signin)
-      
+      const { on, token } = await getFetchPostData('/api/auth/signin', { body: data });
+      auth.signin(token);
+      goto(on.signin);
     } catch (message) {
       error = message;
     }
     submitted = false;
-  }
-  
+  };
+
   // helpers
-  
+
   // props (internal)
   const inputs = [
     { name: 'username', value: 'bmcaleavey' },
     { name: 'password', type: 'password', value: 'Superma3+' }
-  ]
+  ];
   let error = undefined;
   let submitted = false;
-  
+
   // props (external)
-  
+
   // props (dynamic)
-  $:console.log($auth);
-  
+
   // lifecycle
-  onMount(async() => {
+  onMount(async () => {
     $routeChange = false;
   });
 </script>
@@ -60,9 +58,9 @@
           <Input error={error !== undefined} {name} {type} bind:value />
         </InputContainer>
       {/each}
-    <A class="self-end" href="/forgot-password">Forgot Password</A>
-    {#if error !== undefined}
-      <div class="text-red-500" transition:slide>{error}</div>
+      <A class="self-end" href="/forgot-password">Forgot Password</A>
+      {#if error !== undefined}
+        <div class="text-red-500" transition:slide>{error}</div>
       {/if}
     </div>
     <ButtonSubmit bind:submitted type="submit">Signin</ButtonSubmit>

@@ -24,14 +24,17 @@
   export let totalRows = 0;
 
   // props (dynamic)
-  $: classes = twMerge('flex items-center justify-between max-w-full py-[1rem]', $$props.class);
+  $: classes = twMerge(
+    'flex flex-col items-center justify-between max-w-full pt-[1rem] space-y-[1rem] lg:flex-row lg:space-y-0',
+    $$props.class
+  );
 </script>
 
 <div class={classes} use:events>
   <slot>
     <div class="flex items-center space-x-[1rem]">
       <Select {options} bind:value={rowsPerPage} />
-      <div>
+      <div class="text-center whitespace-nowrap">
         Showing {currentPage * rowsPerPage + 1} - {Math.min(
           (currentPage + 1) * rowsPerPage,
           totalRows

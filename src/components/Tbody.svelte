@@ -20,7 +20,7 @@
 <tbody class={classes} use:events>
   <slot>
     {#each rows as row}
-      <Tr columns={sanitizeTableColumns(columns)} {row} />
+      <Tr columns={sanitizeTableColumns(columns)} bind:row />
     {/each}
   </slot>
 </tbody>

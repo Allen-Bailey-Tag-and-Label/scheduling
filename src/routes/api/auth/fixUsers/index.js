@@ -12,10 +12,20 @@ export async function get() {
   const users = await connection.db().collection('users').find().toArray();
 
   // fix all user roles
-  await Promise.all(users.map(async user => {
-    const userRoles = user.roles.map(userRole => roles.find(role => userRole === role.name)._id)
-    await connection.db().collection('users').updateOne({ _id: user._id }, { $set: { roles: userRoles }})
-  }));
+  await Promise.all(
+    users.map(async (user) => {
+      // fix number fields
+      ['ennisId', 'extension'].map((key) => (user[key] = +user[key]));
 
-  return { status: 200, body : {} }
+      // fix dates
+      ['hireDate'].map((key) => (user[key] = new Date(+user[key])));
+
+      // fix roles
+      user.roles = user.roles.map((name) => roles.find((role) => name === role.name)._id);
+
+      await connection.db().collection('users').updateOne({ _id: user._id }, { $set: user });
+    })
+  );
+
+  return { status: 200, body: {} };
 }

@@ -13,12 +13,13 @@
   export let disabled = false;
   export let rounded = true;
   export let size = 'normal';
-  export let type = 'button'
+  export let tabindex = undefined;
+  export let type = 'button';
 
   // props (dynamic)
   $: classes = twMerge(getInputClasses({ color, disabled, rounded, size }), $$props.class);
 </script>
 
-<button class={classes} {disabled} {type} use:events>
+<button class={classes} {disabled} {tabindex} {type} use:events>
   <slot />
 </button>

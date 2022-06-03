@@ -15,7 +15,7 @@
   // props (dynamic)
   $: if (type) dataType = getDataTypeOptions(type);
   $: classes = twMerge(
-    'transition duration-200 whitespace-nowrap bg-white sticky top-0 px-[1rem] z-[1] py-[.5rem] text-[.875rem] font-medium text-gray-700 dark:text-gray-300 dark:bg-gray-900',
+    'transition duration-200 whitespace-nowrap bg-white sticky top-0 px-[1rem] z-[1] py-[.5rem] text-[.875rem] font-medium text-gray-700 dark:text-gray-300 dark:bg-gray-900 overflow-x-auto',
     dataType.classes,
     $$props.class
   );

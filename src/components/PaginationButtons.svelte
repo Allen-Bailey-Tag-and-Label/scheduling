@@ -15,7 +15,10 @@
   export let totalPages = 0;
 
   // props (dynamic)
-  $: classes = twMerge('flex items-center space-x-[.5rem]', $$props.class);
+  $: classes = twMerge(
+    'flex w-full justify-center items-center space-x-[.5rem] lg:justify-end',
+    $$props.class
+  );
   $: startIndex = Math.max(currentPage - 2, 0);
   $: endIndex = Math.min(currentPage + 2, totalPages - 1);
 </script>
@@ -37,7 +40,7 @@
     {#if totalPages > 0}
       {#each Array(Math.min(endIndex - startIndex + 1, 5)) as _, i}
         <Button
-          class={buttonClasses}
+          class={twMerge(buttonClasses, startIndex + i !== currentPage ? 'hidden lg:block' : '')}
           on:click={() => (currentPage = startIndex + i)}
           color={startIndex + i !== currentPage ? 'color-scheme' : 'blue'}
           >{startIndex + i + 1}</Button
